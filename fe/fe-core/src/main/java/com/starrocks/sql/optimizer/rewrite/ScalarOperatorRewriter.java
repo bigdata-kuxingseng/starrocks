@@ -92,6 +92,8 @@ public class ScalarOperatorRewriter {
     }
 
     private ScalarOperator applyRuleBottomUp(ScalarOperator operator, ScalarOperatorRewriteRule rule) {
+        List<ScalarOperator> children = operator.getChildren();
+        List<ScalarOperator> size = operator.getChildren();
         for (int i = 0; i < operator.getChildren().size(); i++) {
             operator.setChild(i, applyRuleBottomUp(operator.getChild(i), rule));
         }

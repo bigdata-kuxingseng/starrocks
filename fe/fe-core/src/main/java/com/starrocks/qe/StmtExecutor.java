@@ -286,6 +286,7 @@ public class StmtExecutor {
                     redirectStatus = parsedStmt.getRedirectStatus();
                     if (!isForwardToMaster()) {
                         context.getDumpInfo().reset();
+                        String originStmt = parsedStmt.getOrigStmt().originStmt;
                         context.getDumpInfo().setOriginStmt(parsedStmt.getOrigStmt().originStmt);
                         execPlan = new StatementPlanner().plan(parsedStmt, context);
                         execPlanBuildByNewPlanner = true;

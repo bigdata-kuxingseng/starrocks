@@ -69,6 +69,8 @@ public class StatementPlanner {
     }
 
     private ExecPlan createQueryPlan(Relation relation, ConnectContext session) {
+        com.starrocks.sql.optimizer.dump.QueryDumpInfo dumpInfo = (com.starrocks.sql.optimizer.dump.QueryDumpInfo)session.getDumpInfo();
+        String originStmt = dumpInfo.getOriginStmt();
         QueryRelation query = (QueryRelation) relation;
         List<String> colNames = query.getColumnOutputNames();
 

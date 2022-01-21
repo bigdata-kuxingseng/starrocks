@@ -4077,6 +4077,7 @@ public class Catalog {
                         }
                         DataProperty dataProperty = PropertyAnalyzer.analyzeDataProperty(properties,
                                 DataProperty.DEFAULT_DATA_PROPERTY);
+                        DynamicPartitionUtil.checkAndSetDynamicPartitionBuckets(properties, distributionDesc.getBuckets());
                         DynamicPartitionUtil.checkAndSetDynamicPartitionProperty(olapTable, properties);
                         if (olapTable.dynamicPartitionExists() && olapTable.getColocateGroup() != null) {
                             HashDistributionInfo info = (HashDistributionInfo) distributionInfo;
@@ -4737,6 +4738,7 @@ public class Catalog {
     }
 
     private List<Long> chosenBackendIdBySeq(int replicationNum, String clusterName) throws DdlException {
+        SystemInfoService currentSystemInfo = Catalog.getCurrentSystemInfo();
         List<Long> chosenBackendIds =
                 Catalog.getCurrentSystemInfo().seqChooseBackendIds(replicationNum, true, true, clusterName);
         if (chosenBackendIds == null) {
